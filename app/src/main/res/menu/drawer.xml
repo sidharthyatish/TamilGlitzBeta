@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+
+    >
+<group android:checkableBehavior="single"
+    android:id="@+id/TopItems"
+    >
+    <item
+        android:id="@+id/nav_home"
+        android:checked="true"
+        android:icon="@drawable/ic_home_24dp"
+        android:title="@string/menu_home" />
+    <item
+        android:id="@+id/nav_hot_news"
+        android:checked="false"
+        android:icon="@drawable/ic_whatshot_24dp"
+        android:title="@string/menu_hotnews" />
+    <item
+        android:id="@+id/nav_featured"
+        android:checked="false"
+        android:icon="@drawable/ic_web_24dp"
+        android:title="@string/menu_featured" />
+    <item
+        android:id="@+id/nav_movie_reviews"
+        android:checked="false"
+        android:icon="@drawable/ic_format_quote_24dp"
+        android:title="@string/menu_movie_reviews" />
+    <item
+        android:id="@+id/nav_movie_trailers"
+        android:checked="false"
+        android:icon="@drawable/ic_theaters_24dp"
+        android:title="@string/menu_movie_trailers" />
+    <item
+        android:id="@+id/nav_box_office"
+        android:checked="false"
+        android:icon="@drawable/ic_work_24dp"
+        android:title="@string/menu_box_office" />
+    <item
+        android:id="@+id/nav_top10"
+        android:checked="false"
+        android:icon="@drawable/ic_star_rate_24dp"
+        android:title="@string/menu_top10" />
+    <item
+        android:id="@+id/nav_music_reviews"
+        android:checked="false"
+        android:icon="@drawable/ic_queue_music_24dp"
+        android:title="@string/menu_music_reviews" />
+    <item
+        android:id="@+id/nav_tech"
+        android:checked="false"
+        android:icon="@drawable/ic_devices_24dp"
+        android:title="@string/menu_tech" />
+    <item
+        android:id="@+id/nav_video_songs"
+        android:checked="false"
+        android:icon="@drawable/ic_shop_24dp"
+        android:title="@string/menu_video_songs" />
+    <item
+        android:id="@+id/nav_videos"
+        android:checked="false"
+        android:icon="@drawable/ic_video_collection_24dp"
+        android:title="@string/menu_videos" />
+    <item
+        android:id="@+id/nav_viral"
+        android:checked="false"
+        android:icon="@drawable/ic_bug_report_24dp"
+        android:title="@string/menu_viral" />
+
+</group>
+    <group android:checkableBehavior="none"
+        android:id="@+id/BottomItems"
+        >
+        <item
+            android:id="@+id/nav_about_us"
+            android:checked="false"
+            android:icon="@drawable/ic_person_24dp"
+            android:title="@string/menu_about_us" />
+        </group>
+</menu>

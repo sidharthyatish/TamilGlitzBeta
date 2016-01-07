@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">TamilGlitz Beta</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_featured">Featured</string>
+    <string name="menu_hotnews">Hot News</string>
+    <string name="menu_movie_reviews">Movie Reviews</string>
+    <string name="menu_music_reviews">Music Reviews</string>
+    <string name="menu_box_office">Box Office</string>
+    <string name="menu_top10">Top 10</string>
+    <string name="menu_tech">Tech</string>
+    <string name="menu_video_songs">Video Songs</string>
+    <string name="menu_videos">Videos</string>
+    <string name="menu_viral">Viral</string>
+    <string name="menu_movie_trailers">Movie Trailers</string>
+    <string name="menu_about_us">About Us</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
