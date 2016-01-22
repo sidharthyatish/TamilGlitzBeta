@@ -9,9 +9,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
@@ -169,10 +177,30 @@ public class Home extends Fragment {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        System.out.println("Some Volley error");
+                        if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                            Toast.makeText(getContext(),"network Timeout",
+                                    Toast.LENGTH_LONG).show();
+                        } else if (error instanceof AuthFailureError) {
+                            Toast.makeText(getContext(),"auth failure",
+                                    Toast.LENGTH_LONG).show();
+                        } else if (error instanceof ServerError) {
+                            Toast.makeText(getContext(),"server error",
+                                    Toast.LENGTH_LONG).show();
+
+                        } else if (error instanceof NetworkError) {
+                            Toast.makeText(getContext(),"network error",Toast.LENGTH_LONG).show();
+
+                        } else if (error instanceof ParseError) {
+
+                            Toast.makeText(getContext(),"parese error",
+                                    Toast.LENGTH_LONG).show();
+                        }
                     }
                 });
-
+jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(
+        50000,
+        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         //Creating request queue
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
 

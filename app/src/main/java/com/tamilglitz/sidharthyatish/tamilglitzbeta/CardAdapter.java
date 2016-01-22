@@ -1,6 +1,9 @@
 package com.tamilglitz.sidharthyatish.tamilglitzbeta;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,16 +13,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.NetworkImageView;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 
 /**
  * Created by Sidharth Yatish on 07-01-2016.
  */
-public class CardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class CardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
     private final int VIEW_ITEM = 1;
     private final int VIEW_PROG = 0;
     private List<Article> articleList;
@@ -39,7 +52,7 @@ public class CardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if (recyclerView.getLayoutManager() instanceof LinearLayoutManager) {
 
             final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-            recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+           recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
                 @Override
                 public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                     super.onScrolled(recyclerView, dx, dy);
@@ -109,7 +122,7 @@ public class CardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return articleList.size();
     }
 
-    public class ArticleViewHolder extends RecyclerView.ViewHolder {
+    public class ArticleViewHolder extends RecyclerView.ViewHolder  implements View.OnClickListener{
         public NetworkImageView thumbView;
         public TextView textViewTitle;
         public TextView textViewDate;
@@ -123,7 +136,63 @@ public class CardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             textViewDate = (TextView) itemView.findViewById(R.id.dateText);
             cardView = (CardView) itemView.findViewById(R.id.cardView);
             textAuthor= (TextView) itemView.findViewById(R.id.authorText);
-            // cardView.setOnClickListener(this);
+            cardView.setOnClickListener(this);
+        }
+        @Override
+        public void onClick(View v) {
+            final Bundle args = new Bundle();
+            url="https://tamilglitz.in/api/get_post/?id=";
+            contentArticle="Outer Error String";
+            // getArticleContent(articleList.get(getAdapterPosition()).getId());
+            id=articleList.get(getAdapterPosition()).getId();
+            // Toast.makeText(context,url+String.valueOf(id),Toast.LENGTH_SHORT).show();
+
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url+String.valueOf(id),null,
+                    new Response.Listener<JSONObject>() {
+
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            //Dismissing progress dialog
+                            try {
+                                //Toast.makeText(context,contentArticle,Toast.LENGTH_SHORT).show();
+                                JSONObject post = response.getJSONObject("post");
+
+                                contentArticle=post.getString("content");
+                                args.putString("content", contentArticle);
+                                Intent intent = new Intent(context, ReaderActivity.class);
+                                intent.putExtra("content", contentArticle);
+                                //((Activity) context).startActivity(intent);
+                                context.startActivity(intent);
+
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                System.out.println("OBJECT RETRIEVAL ERROR");
+                                Toast.makeText(context, "Please Try again", Toast.LENGTH_SHORT).show();
+                            }
+                            // listArticles.remove(null);
+
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            System.out.println("Some Volley error");
+                            Toast.makeText(context,"Error while fetch",Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+            jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                    50000,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            Toast.makeText(context,"Loading Article..please wait..",Toast.LENGTH_SHORT).show();
+
+
+            RequestQueue requestQueue = Volley.newRequestQueue((Activity) context);
+
+            //Adding request to the queue
+            requestQueue.add(jsonObjectRequest);
         }
 
 
