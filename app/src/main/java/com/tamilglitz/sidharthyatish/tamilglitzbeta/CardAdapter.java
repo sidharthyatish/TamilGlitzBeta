@@ -1,6 +1,5 @@
 package com.tamilglitz.sidharthyatish.tamilglitzbeta;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,19 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.NetworkImageView;
-import com.android.volley.toolbox.Volley;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.List;
 
@@ -100,7 +89,7 @@ public class CardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  
             Article article = articleList.get(position);
             ArticleViewHolder aHolder= (ArticleViewHolder) holder;
             imageLoader = CustomVolleyRequest.getInstance(context).getImageLoader();
-            imageLoader.get(article.getThumbUrl(), ImageLoader.getImageListener(aHolder.thumbView, R.mipmap.ic_launcher, android.R.drawable.ic_dialog_alert));
+            imageLoader.get(article.getThumbUrl(), ImageLoader.getImageListener(aHolder.thumbView, R.drawable.tglogo_circle, android.R.drawable.ic_dialog_alert));
 
             aHolder.thumbView.setImageUrl(article.getThumbUrl(), imageLoader);
             aHolder.textViewTitle.setText(Html.fromHtml(article.getTitle()));
@@ -129,6 +118,7 @@ public class CardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  
         public CardView cardView;
         public Article currentArticle;
         public TextView textAuthor;
+        public String bitmap;
         public ArticleViewHolder(View itemView) {
             super(itemView);
             thumbView = (NetworkImageView) itemView.findViewById(R.id.thumbNailView);
@@ -141,12 +131,13 @@ public class CardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  
         @Override
         public void onClick(View v) {
             final Bundle args = new Bundle();
-            url="https://tamilglitz.in/api/get_post/?id=";
+            url=articleList.get(getAdapterPosition()).getUrl();
             contentArticle="Outer Error String";
             // getArticleContent(articleList.get(getAdapterPosition()).getId());
             id=articleList.get(getAdapterPosition()).getId();
-            // Toast.makeText(context,url+String.valueOf(id),Toast.LENGTH_SHORT).show();
-
+            contentArticle=articleList.get(getAdapterPosition()).getContent();
+             bitmap=articleList.get(getAdapterPosition()).getThumbUrl();
+        /*    Toast.makeText(context,bitmap,Toast.LENGTH_LONG).show();
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url+String.valueOf(id),null,
                     new Response.Listener<JSONObject>() {
 
@@ -159,8 +150,9 @@ public class CardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  
 
                                 contentArticle=post.getString("content");
                                 args.putString("content", contentArticle);
-                                Intent intent = new Intent(context, ReaderActivity.class);
+                                Intent intent = new Intent(context,ModifiedReader.class);
                                 intent.putExtra("content", contentArticle);
+                                intent.putExtra("images", bitmap);
                                 //((Activity) context).startActivity(intent);
                                 context.startActivity(intent);
 
@@ -193,6 +185,13 @@ public class CardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  
 
             //Adding request to the queue
             requestQueue.add(jsonObjectRequest);
+            */
+            args.putString("content", contentArticle);
+            Intent intent = new Intent(context,ModifiedReader.class);
+            intent.putExtra("content", contentArticle);
+            intent.putExtra("images", bitmap);
+            intent.putExtra("url",url);
+            context.startActivity(intent);
         }
 
 

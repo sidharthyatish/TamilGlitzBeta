@@ -18,7 +18,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ReaderActivity" />
-        <activity android:name=".ModifiedReader"></activity>
+        <activity android:name=".ModifiedReader" />
+        <activity android:name=".ReaderTest"></activity>
     </application>
 
 </manifest>

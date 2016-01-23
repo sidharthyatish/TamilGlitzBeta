@@ -152,6 +152,8 @@ public class Home extends Fragment {
                                 Article topic = new Article();
                                 topic.setTitle(obj.getString("title"));
                                 topic.setDate(obj.getString("date"));
+                                topic.setContent(obj.getString("content"));
+                                topic.setUrl(obj.getString("url"));
                                 JSONObject thumbnailObject=obj.getJSONObject("thumbnail_images");
                                 JSONObject authorObj =obj.getJSONObject("author");
                                 JSONObject thumbnailfullobj=thumbnailObject.getJSONObject("full");

@@ -7,6 +7,7 @@ public class Article {
     private String title;
     private String thumbUrl;
     private String date;
+    private String url;
     private String content;
     private String author;
     private int id;
@@ -58,5 +59,13 @@ public class Article {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }
