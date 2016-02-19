@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -35,7 +36,7 @@ public class ModifiedReader extends AppCompatActivity {
         else att="Not a video attachment.";
         NetworkImageView thumbNail = (NetworkImageView) findViewById(R.id.header);
         thumbNail.setImageUrl(bitmap, imageLoader);
-        getSupportActionBar().setTitle("Tamil Glitz");
+        getSupportActionBar().setTitle(Html.fromHtml(intent.getStringExtra("title")));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         readerToolbar.setNavigationOnClickListener(new View.OnClickListener() {

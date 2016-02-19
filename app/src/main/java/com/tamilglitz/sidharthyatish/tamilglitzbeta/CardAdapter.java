@@ -18,9 +18,7 @@ import com.android.volley.toolbox.NetworkImageView;
 
 import java.util.List;
 
-/**
- * Created by Sidharth Yatish on 07-01-2016.
- */
+
 public class CardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
     private final int VIEW_ITEM = 1;
     private final int VIEW_PROG = 0;
@@ -120,6 +118,7 @@ public class CardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  
         public TextView textAuthor;
         public String bitmap;
         public String attachmentUrl;
+        String title;
         public ArticleViewHolder(View itemView) {
             super(itemView);
             thumbView = (NetworkImageView) itemView.findViewById(R.id.thumbNailView);
@@ -139,60 +138,13 @@ public class CardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  
             contentArticle=articleList.get(getAdapterPosition()).getContent();
             bitmap=articleList.get(getAdapterPosition()).getThumbUrl();
             attachmentUrl=articleList.get(getAdapterPosition()).getAttachmentUrl();
-        /*    Toast.makeText(context,bitmap,Toast.LENGTH_LONG).show();
-            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url+String.valueOf(id),null,
-                    new Response.Listener<JSONObject>() {
-
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            //Dismissing progress dialog
-                            try {
-                                //Toast.makeText(context,contentArticle,Toast.LENGTH_SHORT).show();
-                                JSONObject post = response.getJSONObject("post");
-
-                                contentArticle=post.getString("content");
-                                args.putString("content", contentArticle);
-                                Intent intent = new Intent(context,ModifiedReader.class);
-                                intent.putExtra("content", contentArticle);
-                                intent.putExtra("images", bitmap);
-                                //((Activity) context).startActivity(intent);
-                                context.startActivity(intent);
-
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                                System.out.println("OBJECT RETRIEVAL ERROR");
-                                Toast.makeText(context, "Please Try again", Toast.LENGTH_SHORT).show();
-                            }
-                            // listArticles.remove(null);
-
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            System.out.println("Some Volley error");
-                            Toast.makeText(context,"Error while fetch",Toast.LENGTH_SHORT).show();
-
-                        }
-                    });
-            jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(
-                    50000,
-                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-            Toast.makeText(context,"Loading Article..please wait..",Toast.LENGTH_SHORT).show();
-
-
-            RequestQueue requestQueue = Volley.newRequestQueue((Activity) context);
-
-            //Adding request to the queue
-            requestQueue.add(jsonObjectRequest);
-            */
+            title=articleList.get(getAdapterPosition()).getTitle();
             args.putString("content", contentArticle);
             Intent intent = new Intent(context,ModifiedReader.class);
             intent.putExtra("content", contentArticle);
             intent.putExtra("images", bitmap);
             intent.putExtra("url",url);
+            intent.putExtra("title",title);
             intent.putExtra("attachment",attachmentUrl);
             context.startActivity(intent);
         }
