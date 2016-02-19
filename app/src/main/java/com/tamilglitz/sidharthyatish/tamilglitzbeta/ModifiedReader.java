@@ -28,6 +28,11 @@ public class ModifiedReader extends AppCompatActivity {
         setSupportActionBar(readerToolbar);
         ImageLoader  imageLoader=CustomVolleyRequest.getInstance(this.getApplicationContext()).getImageLoader();
         String bitmap = intent.getStringExtra("images");
+        final String attachment=intent.getStringExtra("attachment");
+        final String att;
+        if(attachment!=null)
+            att= attachment.substring(attachment.lastIndexOf("http"),attachment.lastIndexOf("\";}"));
+        else att="Not a video attachment";
         NetworkImageView thumbNail = (NetworkImageView) findViewById(R.id.header);
         thumbNail.setImageUrl(bitmap, imageLoader);
         getSupportActionBar().setTitle("Tamil Glitz");
@@ -68,7 +73,7 @@ public class ModifiedReader extends AppCompatActivity {
         header.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),"clicked",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),att,Toast.LENGTH_LONG).show();
             }
         });
     }

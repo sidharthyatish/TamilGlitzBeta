@@ -119,6 +119,7 @@ public class CardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  
         public Article currentArticle;
         public TextView textAuthor;
         public String bitmap;
+        public String attachmentUrl;
         public ArticleViewHolder(View itemView) {
             super(itemView);
             thumbView = (NetworkImageView) itemView.findViewById(R.id.thumbNailView);
@@ -137,6 +138,7 @@ public class CardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  
             id=articleList.get(getAdapterPosition()).getId();
             contentArticle=articleList.get(getAdapterPosition()).getContent();
              bitmap=articleList.get(getAdapterPosition()).getThumbUrl();
+            attachmentUrl=articleList.get(getAdapterPosition()).getAttachmentUrl();
         /*    Toast.makeText(context,bitmap,Toast.LENGTH_LONG).show();
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url+String.valueOf(id),null,
                     new Response.Listener<JSONObject>() {
@@ -191,6 +193,7 @@ public class CardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  
             intent.putExtra("content", contentArticle);
             intent.putExtra("images", bitmap);
             intent.putExtra("url",url);
+            intent.putExtra("attachment",attachmentUrl);
             context.startActivity(intent);
         }
 

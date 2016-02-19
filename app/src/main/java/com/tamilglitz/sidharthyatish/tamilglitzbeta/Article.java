@@ -11,6 +11,8 @@ public class Article {
     private String content;
     private String author;
     private int id;
+    private String attachmentUrl;
+    private String slug;
 
 
     public void setThumbUrl(String thumbUrl) {
@@ -67,5 +69,21 @@ public class Article {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getAttachmentUrl() {
+        return attachmentUrl;
+    }
+
+    public void setAttachmentUrl(String attachmentUrl) {
+        this.attachmentUrl = attachmentUrl;
+    }
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
     }
 }

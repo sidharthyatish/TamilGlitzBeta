@@ -154,9 +154,17 @@ public class Home extends Fragment {
                                 topic.setDate(obj.getString("date"));
                                 topic.setContent(obj.getString("content"));
                                 topic.setUrl(obj.getString("url"));
+                                JSONArray categories=obj.getJSONArray("categories");
+                                JSONObject categoryObj=categories.getJSONObject(0);
+                                String content=categoryObj.getString("slug");
                                 JSONObject thumbnailObject=obj.getJSONObject("thumbnail_images");
                                 JSONObject authorObj =obj.getJSONObject("author");
                                 JSONObject thumbnailfullobj=thumbnailObject.getJSONObject("full");
+                                if(content.equals("movie-trailers")||content.equals("videos")||content.equals("video-songs")){
+                                    JSONObject customFieldsObject=obj.getJSONObject("custom_fields");
+                                    JSONArray tdPostVideo =customFieldsObject.getJSONArray("td_post_video");
+                                    topic.setAttachmentUrl(tdPostVideo.getString(0));
+                                }
                                 topic.setThumbUrl(thumbnailfullobj.getString("url"));
                                 topic.setId(obj.getInt("id"));
                                 topic.setAuthor(authorObj.getString("name"));
