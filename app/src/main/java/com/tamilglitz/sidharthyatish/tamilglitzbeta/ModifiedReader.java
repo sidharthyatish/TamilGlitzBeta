@@ -10,6 +10,7 @@ import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.Toast;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
@@ -60,6 +61,14 @@ public class ModifiedReader extends AppCompatActivity {
                 sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "TamilGlitz");
                 sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
                 startActivity(Intent.createChooser(sharingIntent, "Share via"));
+            }
+        });
+        //CollapsingToolbarLayout head= (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        NetworkImageView header= (NetworkImageView) findViewById(R.id.header);
+        header.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(),"clicked",Toast.LENGTH_LONG).show();
             }
         });
     }
