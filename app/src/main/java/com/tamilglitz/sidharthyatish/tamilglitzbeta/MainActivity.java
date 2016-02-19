@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity{
 
     private void selectDrawerItem(MenuItem menuItem) {
         Fragment fragment = null;
-
+Home home =new Home();
         Class fragmentClass;
         switch(menuItem.getItemId()) {
             case R.id.nav_home:
@@ -133,6 +133,9 @@ public class MainActivity extends AppCompatActivity{
                 break;
             case R.id.nav_viral:
                 fragmentClass=Viral.class;
+                break;
+            case R.id.nav_about_us:
+                fragmentClass=AboutUs.class;
                 break;
             default:
                 fragmentClass = Home.class;
