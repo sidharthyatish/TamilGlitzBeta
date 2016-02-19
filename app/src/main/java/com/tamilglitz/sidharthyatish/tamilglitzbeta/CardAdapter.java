@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -38,27 +37,7 @@ public class CardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  
     public CardAdapter(List<Article> articles,RecyclerView recyclerView,Context context){
         articleList=articles;
         this.context=context;
-        if (recyclerView.getLayoutManager() instanceof LinearLayoutManager) {
 
-            final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-           recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-                @Override
-                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                    super.onScrolled(recyclerView, dx, dy);
-
-                    totalItemCount = linearLayoutManager.getItemCount();
-                    lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
-                    if (!loading && totalItemCount <= (lastVisibleItem + visibleThreshold)) {
-                        // End has been reached
-                        // Do something
-                        if (onLoadMoreListener != null) {
-                            onLoadMoreListener.onLoadMore();
-                        }
-                        loading = true;
-                    }
-                }
-            });
-        }
     }
     @Override
     public int getItemViewType(int position) {
@@ -139,55 +118,6 @@ public class CardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  
             contentArticle=articleList.get(getAdapterPosition()).getContent();
              bitmap=articleList.get(getAdapterPosition()).getThumbUrl();
             attachmentUrl=articleList.get(getAdapterPosition()).getAttachmentUrl();
-        /*    Toast.makeText(context,bitmap,Toast.LENGTH_LONG).show();
-            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url+String.valueOf(id),null,
-                    new Response.Listener<JSONObject>() {
-
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            //Dismissing progress dialog
-                            try {
-                                //Toast.makeText(context,contentArticle,Toast.LENGTH_SHORT).show();
-                                JSONObject post = response.getJSONObject("post");
-
-                                contentArticle=post.getString("content");
-                                args.putString("content", contentArticle);
-                                Intent intent = new Intent(context,ModifiedReader.class);
-                                intent.putExtra("content", contentArticle);
-                                intent.putExtra("images", bitmap);
-                                //((Activity) context).startActivity(intent);
-                                context.startActivity(intent);
-
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                                System.out.println("OBJECT RETRIEVAL ERROR");
-                                Toast.makeText(context, "Please Try again", Toast.LENGTH_SHORT).show();
-                            }
-                            // listArticles.remove(null);
-
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            System.out.println("Some Volley error");
-                            Toast.makeText(context,"Error while fetch",Toast.LENGTH_SHORT).show();
-
-                        }
-                    });
-            jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(
-                    50000,
-                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-            Toast.makeText(context,"Loading Article..please wait..",Toast.LENGTH_SHORT).show();
-
-
-            RequestQueue requestQueue = Volley.newRequestQueue((Activity) context);
-
-            //Adding request to the queue
-            requestQueue.add(jsonObjectRequest);
-            */
             args.putString("content", contentArticle);
             Intent intent = new Intent(context,ModifiedReader.class);
             intent.putExtra("content", contentArticle);
