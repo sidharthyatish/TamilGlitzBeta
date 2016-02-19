@@ -32,7 +32,7 @@ public class ModifiedReader extends AppCompatActivity {
         final String att;
         if(attachment!=null)
             att= attachment.substring(attachment.lastIndexOf("http"),attachment.lastIndexOf("\";}"));
-        else att="Not a video attachment";
+        else att="Not a video attachment.";
         NetworkImageView thumbNail = (NetworkImageView) findViewById(R.id.header);
         thumbNail.setImageUrl(bitmap, imageLoader);
         getSupportActionBar().setTitle("Tamil Glitz");
