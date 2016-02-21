@@ -9,7 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:fitsSystemWindows="true"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        >
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
@@ -19,7 +20,8 @@
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleMarginEnd="64dp"
             app:expandedTitleMarginStart="48dp"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            >
 
             <com.android.volley.toolbox.NetworkImageView
                 android:id="@+id/header"
@@ -38,7 +40,19 @@
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
+
             </android.support.v7.widget.Toolbar>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/toolbar_title"
+                android:text="Test"
+                android:textSize="25sp"
+                android:layout_gravity="bottom"
+
+                android:textColor="@color/colorActionBarText"
+                android:layout_marginBottom="20dp"
+                />
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
@@ -47,28 +61,33 @@
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:id="@+id/nestScrollView"
+
+        >
 
         <WebView
             android:id="@+id/webView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/white"
+            android:layout_marginTop="40dp"
+
             />
 
     </android.support.v4.widget.NestedScrollView>
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:clickable="true"
 
+        android:clickable="true"
         android:src="@drawable/ic_share_24dp"
         app:backgroundTint="@android:color/holo_orange_light"
-        app:layout_anchor="@id/webView"
+        app:layout_anchor="@id/nestScrollView"
         app:layout_anchorGravity="top|right|end"/>
-
 
 
 

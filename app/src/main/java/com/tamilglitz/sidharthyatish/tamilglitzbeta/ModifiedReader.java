@@ -11,6 +11,7 @@ import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
@@ -24,6 +25,8 @@ public class ModifiedReader extends AppCompatActivity {
         Intent intent=getIntent();
         String content=getIntent().getStringExtra("content");
         final String shareUrl=intent.getStringExtra("url");
+        TextView toolbarTitle= (TextView) findViewById(R.id.toolbar_title);
+        toolbarTitle.setText(Html.fromHtml(getIntent().getStringExtra("title")));
         readerToolbar= (Toolbar) findViewById(R.id.anim_toolbar);
         setSupportActionBar(readerToolbar);
         ImageLoader  imageLoader=CustomVolleyRequest.getInstance(this.getApplicationContext()).getImageLoader();
@@ -35,7 +38,7 @@ public class ModifiedReader extends AppCompatActivity {
         else att=null;
         NetworkImageView thumbNail = (NetworkImageView) findViewById(R.id.header);
         thumbNail.setImageUrl(bitmap, imageLoader);
-        getSupportActionBar().setTitle(Html.fromHtml(intent.getStringExtra("title")));
+        getSupportActionBar().setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         readerToolbar.setNavigationOnClickListener(new View.OnClickListener() {

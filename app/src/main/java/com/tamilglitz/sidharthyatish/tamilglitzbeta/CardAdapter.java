@@ -92,10 +92,10 @@ public class CardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  
             aHolder.thumbView.setImageUrl(article.getThumbUrl(), imageLoader);
             aHolder.textViewTitle.setText(Html.fromHtml(article.getTitle()));
 
-            aHolder.textViewDate.setText(article.getDate());
+           // aHolder.textViewDate.setText(article.getDate());
             aHolder.thumbView.setTag(aHolder);
             aHolder.currentArticle = article;
-            aHolder.textAuthor.setText(article.getAuthor());
+         //   aHolder.textAuthor.setText(article.getAuthor());
         }
         else if(holder instanceof ProgressViewHolder){
             ProgressViewHolder pHolder = (ProgressViewHolder) holder;
@@ -123,9 +123,9 @@ public class CardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  
             super(itemView);
             thumbView = (NetworkImageView) itemView.findViewById(R.id.thumbNailView);
             textViewTitle = (TextView) itemView.findViewById(R.id.titleText);
-            textViewDate = (TextView) itemView.findViewById(R.id.dateText);
+           // textViewDate = (TextView) itemView.findViewById(R.id.dateText);
             cardView = (CardView) itemView.findViewById(R.id.cardView);
-            textAuthor= (TextView) itemView.findViewById(R.id.authorText);
+           // textAuthor= (TextView) itemView.findViewById(R.id.authorText);
             cardView.setOnClickListener(this);
         }
         @Override
