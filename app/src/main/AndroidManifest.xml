@@ -19,7 +19,8 @@
         </activity>
         <activity android:name=".ReaderActivity" />
         <activity android:name=".ModifiedReader" />
-        <activity android:name=".ReaderTest"></activity>
+        <activity android:name=".ReaderTest" />
+        <activity android:name=".VideoPlayer"></activity>
     </application>
 
 </manifest>

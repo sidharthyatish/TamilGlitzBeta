@@ -11,7 +11,6 @@ import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.widget.Toast;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
@@ -32,8 +31,8 @@ public class ModifiedReader extends AppCompatActivity {
         final String attachment=intent.getStringExtra("attachment");
         final String att;
         if(attachment!=null)
-            att= attachment.substring(attachment.lastIndexOf("http"),attachment.lastIndexOf("\";}"));
-        else att="Not a video attachment.";
+            att= attachment.substring(attachment.lastIndexOf("=")+1,attachment.lastIndexOf("\";}"));
+        else att=null;
         NetworkImageView thumbNail = (NetworkImageView) findViewById(R.id.header);
         thumbNail.setImageUrl(bitmap, imageLoader);
         getSupportActionBar().setTitle(Html.fromHtml(intent.getStringExtra("title")));
@@ -74,7 +73,11 @@ public class ModifiedReader extends AppCompatActivity {
         header.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),att,Toast.LENGTH_LONG).show();
+                if(att!=null) {
+                    Intent yIntent = new Intent(getApplicationContext(), VideoPlayer.class);
+                    yIntent.putExtra("video_id",att);
+                    startActivity(yIntent);
+                }
             }
         });
     }
