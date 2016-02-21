@@ -9,7 +9,7 @@
         <item name="actionBarTabTextStyle">@color/colorActionBarText</item>
     </style>
     <style name="nav_items_style" parent="ThemeOverlay.AppCompat.Dark">
-        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textColor">@color/colorPrimaryText</item>
         <item name="android:textSize">@dimen/nav_bar_items_text_size</item>
     </style>
 
