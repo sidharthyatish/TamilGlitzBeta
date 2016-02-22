@@ -2,6 +2,7 @@ package com.tamilglitz.sidharthyatish.tamilglitzbeta;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -44,7 +45,8 @@ public class Home extends Fragment {
     private int visibleThreshold = 3;
     private int previousTotal=0;
     private int page=1;
-
+    SwipeRefreshLayout swipeRefreshLayout;
+    boolean success=false;
     private boolean loading = true;
     int firstVisibleItem, visibleItemCount, totalItemCount;
     public Home() {
@@ -73,6 +75,21 @@ public class Home extends Fragment {
         getData(page);
         adapter=new CardAdapter(listArticles,recyclerView,getContext());
         recyclerView.setAdapter(adapter);
+        swipeRefreshLayout= (SwipeRefreshLayout) getActivity().findViewById(R.id.swipeRefresh);
+        swipeRefreshLayout.setColorSchemeColors(R.color.colorAccent,R.color.colorPrimaryText);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if ((success && loading) || !loading) {
+                    page++;
+                    getData(page);
+                } else if (!success && !loading) {
+                    getData(page);
+                }
+
+            }
+
+        });
         adapter.setOnLoadMoreListener(new CardAdapter.OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
@@ -86,7 +103,7 @@ public class Home extends Fragment {
 
     }
     private void getData(final int page){
-
+        success=false;
         System.out.println("The articles size is " + listArticles.size());
         String url="https://tamilglitz.in/api/get_recent_posts/?count=2&page=";
         //Creating a json array request
@@ -141,11 +158,15 @@ public class Home extends Fragment {
                         // listArticles.remove(null);
                         // adapter.notifyDataSetChanged();
                         adapter.setLoaded();
+                        success=true;
+                        if(swipeRefreshLayout.isRefreshing())
+                            swipeRefreshLayout.setRefreshing(false);
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        success=false;
                         if (error instanceof TimeoutError || error instanceof NoConnectionError) {
                             Toast.makeText(getContext(),"network Timeout",
                                     Toast.LENGTH_LONG).show();
