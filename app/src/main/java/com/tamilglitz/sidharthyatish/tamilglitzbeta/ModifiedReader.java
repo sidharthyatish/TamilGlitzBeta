@@ -49,11 +49,15 @@ public class ModifiedReader extends AppCompatActivity {
         });
         WebView wb= (WebView) findViewById(R.id.webView);
         wb.getSettings().setJavaScriptEnabled(true);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+        wb.getSettings().setLoadWithOverviewMode(true);
+        wb.getSettings().setUseWideViewPort(true);
+       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             wb.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.TEXT_AUTOSIZING);
         } else {
             wb.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NORMAL);
         }
+
+
 
         //wb.getSettings().setUseWideViewPort(true);
         // wb.getSettings().setDefaultTextEncodingName("UTF-8");
