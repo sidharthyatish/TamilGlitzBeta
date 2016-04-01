@@ -112,7 +112,7 @@ public class Home extends Fragment {
     private void getData(final int page){
         success=false;
         System.out.println("The articles size is " + listArticles.size());
-        String url="https://tamilglitz.in/api/get_recent_posts/?count=2&page=";
+        String url="https://tamilglitz.in/api/get_category_posts/?slug=movie-reviews&count=2&page=";
         //Creating a json array request
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url+String.valueOf(page),null,
                 new Response.Listener<JSONObject>() {
