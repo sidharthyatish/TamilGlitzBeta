@@ -66,6 +66,7 @@
         android:icon="@drawable/ic_bug_report_24dp"
         android:title="@string/menu_viral" />
 
+
 </group>
     <group android:checkableBehavior="none"
         android:id="@+id/BottomItems"

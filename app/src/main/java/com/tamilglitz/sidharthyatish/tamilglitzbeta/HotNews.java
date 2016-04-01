@@ -1,6 +1,8 @@
 package com.tamilglitz.sidharthyatish.tamilglitzbeta;
 
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -43,7 +45,7 @@ public class HotNews extends Fragment {
     private int visibleThreshold = 3;
     private int previousTotal=0;
     private int page=1;
-
+private CoordinatorLayout coordinatorLayout;
     private boolean loading = true;
     int firstVisibleItem, visibleItemCount, totalItemCount;
     public HotNews() {
@@ -65,6 +67,7 @@ public class HotNews extends Fragment {
         RecyclerView recyclerView= (RecyclerView) getActivity().findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         llm=new LinearLayoutManager(getActivity());
+        coordinatorLayout = (CoordinatorLayout) getActivity().findViewById(R.id.coordinatorLayout);
         recyclerView.setLayoutManager(llm);
         listArticles = new ArrayList<>();
 
@@ -146,8 +149,16 @@ public class HotNews extends Fragment {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                            Toast.makeText(getContext(), "network Timeout",
-                                    Toast.LENGTH_LONG).show();
+                            Snackbar snackbar = Snackbar
+                                    .make(coordinatorLayout, "No internet connection!", Snackbar.LENGTH_INDEFINITE)
+                                    .setAction("RETRY", new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            getData(page);
+
+                                        }
+                                    });
+                            snackbar.show();
                         } else if (error instanceof AuthFailureError) {
                             Toast.makeText(getContext(),"auth failure",
                                     Toast.LENGTH_LONG).show();

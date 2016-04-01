@@ -1,13 +1,10 @@
 package com.tamilglitz.sidharthyatish.tamilglitzbeta;
 
+
 import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,9 +32,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class Home extends Fragment {
-
+public class Actress extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private CardAdapter adapter;
@@ -48,13 +43,10 @@ public class Home extends Fragment {
     private int visibleThreshold = 3;
     private int previousTotal=0;
     private int page=1;
-    SwipeRefreshLayout swipeRefreshLayout;
-    boolean success=false;
+
     private boolean loading = true;
     int firstVisibleItem, visibleItemCount, totalItemCount;
-    private CoordinatorLayout coordinatorLayout;
-    private StaggeredGridLayoutManager ssg;
-    public Home() {
+    public Actress() {
         // Required empty public constructor
     }
 
@@ -64,7 +56,7 @@ public class Home extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        return inflater.inflate(R.layout.fragment_actress, container, false);
     }
 
     @Override
@@ -73,7 +65,6 @@ public class Home extends Fragment {
         RecyclerView recyclerView= (RecyclerView) getActivity().findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         llm=new LinearLayoutManager(getActivity());
-    coordinatorLayout = (CoordinatorLayout) getActivity().findViewById(R.id.coordinatorLayout);
         recyclerView.setLayoutManager(llm);
         listArticles = new ArrayList<>();
 
@@ -81,22 +72,6 @@ public class Home extends Fragment {
         getData(page);
         adapter=new CardAdapter(listArticles,recyclerView,getContext());
         recyclerView.setAdapter(adapter);
-     /*   swipeRefreshLayout= (SwipeRefreshLayout) getActivity().findViewById(R.id.swipeRefresh);
-        swipeRefreshLayout.setColorSchemeColors(R.color.colorAccent,R.color.colorPrimaryText);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                if ((success && loading) || !loading) {
-                    page++;
-                    getData(page);
-                } else if (!success && !loading) {
-                    getData(page);
-                }
-
-            }
-
-        });
-        */
         adapter.setOnLoadMoreListener(new CardAdapter.OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
@@ -110,9 +85,9 @@ public class Home extends Fragment {
 
     }
     private void getData(final int page){
-        success=false;
+
         System.out.println("The articles size is " + listArticles.size());
-        String url="https://tamilglitz.in/api/get_recent_posts/?count=2&page=";
+        String url="https://tamilglitz.in/api/get_category_posts/?slug=actress&count=2&page=";
         //Creating a json array request
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url+String.valueOf(page),null,
                 new Response.Listener<JSONObject>() {
@@ -165,28 +140,14 @@ public class Home extends Fragment {
                         // listArticles.remove(null);
                         // adapter.notifyDataSetChanged();
                         adapter.setLoaded();
-                        success=true;
-//                        if(swipeRefreshLayout.isRefreshing())
-//                            swipeRefreshLayout.setRefreshing(false);
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        System.out.println("Error is : "+error);
-                        success=false;
                         if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                            Snackbar snackbar = Snackbar
-                                    .make(coordinatorLayout, "No internet connection!", Snackbar.LENGTH_LONG)
-                                    .setAction("RETRY", new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view) {
-                                            getData(page);
-
-                                        }
-                                    });
-                            snackbar.show();
-
+                            Toast.makeText(getContext(), "network Timeout",
+                                    Toast.LENGTH_LONG).show();
                         } else if (error instanceof AuthFailureError) {
                             Toast.makeText(getContext(),"auth failure",
                                     Toast.LENGTH_LONG).show();

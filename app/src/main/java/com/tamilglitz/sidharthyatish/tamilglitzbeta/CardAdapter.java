@@ -87,7 +87,7 @@ public class CardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  
             Article article = articleList.get(position);
             ArticleViewHolder aHolder= (ArticleViewHolder) holder;
             imageLoader = CustomVolleyRequest.getInstance(context).getImageLoader();
-            imageLoader.get(article.getThumbUrl(), ImageLoader.getImageListener(aHolder.thumbView, R.drawable.tglogo_circle, android.R.drawable.ic_dialog_alert));
+            imageLoader.get(article.getThumbUrl(), ImageLoader.getImageListener(aHolder.thumbView, R.drawable.tglogo_main, android.R.drawable.ic_dialog_alert));
 
             aHolder.thumbView.setImageUrl(article.getThumbUrl(), imageLoader);
             aHolder.textViewTitle.setText(Html.fromHtml(article.getTitle()));
