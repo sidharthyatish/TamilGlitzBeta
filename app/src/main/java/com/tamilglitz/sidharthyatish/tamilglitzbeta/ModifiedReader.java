@@ -60,7 +60,7 @@ public class ModifiedReader extends AppCompatActivity {
                 onBackPressed();
             }
         });
-        WebView wb= (WebView) findViewById(R.id.webView);
+        final WebView wb= (WebView) findViewById(R.id.webView);
         wb.getSettings().setJavaScriptEnabled(true);
         wb.getSettings().setLoadWithOverviewMode(true);
         wb.getSettings().setUseWideViewPort(true);
@@ -76,19 +76,21 @@ public class ModifiedReader extends AppCompatActivity {
         // wb.getSettings().setDefaultTextEncodingName("UTF-8");
         wb.setWebChromeClient(new WebChromeClient());
         wb.loadData(content, "text/html;charset=UTF-8", null);
-
+      //  wb.loadUrl("javascript:document.getElementById('p').style.fontFa‌​mily = 'slabo';");
         //CollapsingToolbarLayout head= (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         NetworkImageView header= (NetworkImageView) findViewById(R.id.header);
-        header.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(att!=null) {
-                    Intent yIntent = new Intent(getApplicationContext(), VideoPlayer.class);
-                    yIntent.putExtra("video_id",att);
-                    startActivity(yIntent);
+        if (header != null) {
+            header.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(att!=null) {
+                        Intent yIntent = new Intent(getApplicationContext(), VideoPlayer.class);
+                        yIntent.putExtra("video_id",att);
+                        startActivity(yIntent);
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     @Override

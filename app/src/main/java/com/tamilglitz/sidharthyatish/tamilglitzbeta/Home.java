@@ -13,17 +13,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.NetworkError;
-import com.android.volley.NoConnectionError;
-import com.android.volley.ParseError;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.ServerError;
-import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
@@ -73,7 +66,7 @@ public class Home extends Fragment {
         RecyclerView recyclerView= (RecyclerView) getActivity().findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         llm=new LinearLayoutManager(getActivity());
-    coordinatorLayout = (CoordinatorLayout) getActivity().findViewById(R.id.coordinatorLayout);
+    //coordinatorLayout = (CoordinatorLayout) getActivity().findViewById(R.id.coordinatorLayout);
         recyclerView.setLayoutManager(llm);
         listArticles = new ArrayList<>();
 
@@ -112,7 +105,7 @@ public class Home extends Fragment {
     private void getData(final int page){
         success=false;
         System.out.println("The articles size is " + listArticles.size());
-        String url="https://tamilglitz.in/api/get_category_posts/?slug=movie-reviews&count=2&page=";
+        String url="https://tamilglitz.in/api/get_recent_posts/?count=4&page=";
         //Creating a json array request
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url+String.valueOf(page),null,
                 new Response.Listener<JSONObject>() {
@@ -175,33 +168,16 @@ public class Home extends Fragment {
                     public void onErrorResponse(VolleyError error) {
                         System.out.println("Error is : "+error);
                         success=false;
-                        if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                            Snackbar snackbar = Snackbar
-                                    .make(coordinatorLayout, "No internet connection!", Snackbar.LENGTH_LONG)
-                                    .setAction("RETRY", new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view) {
-                                            getData(page);
+                        Snackbar snackbar = Snackbar
+                                .make(recyclerView, "No internet connection!", Snackbar.LENGTH_LONG)
+                                .setAction("RETRY", new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        getData(page);
 
-                                        }
-                                    });
-                            snackbar.show();
-
-                        } else if (error instanceof AuthFailureError) {
-                            Toast.makeText(getContext(),"auth failure",
-                                    Toast.LENGTH_LONG).show();
-                        } else if (error instanceof ServerError) {
-                            Toast.makeText(getContext(),"server error",
-                                    Toast.LENGTH_LONG).show();
-
-                        } else if (error instanceof NetworkError) {
-                            Toast.makeText(getContext(),"network error",Toast.LENGTH_LONG).show();
-
-                        } else if (error instanceof ParseError) {
-
-                            Toast.makeText(getContext(),"parse error",
-                                    Toast.LENGTH_LONG).show();
-                        }
+                                    }
+                                });
+                        snackbar.show();
                     }
                 });
         jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(

@@ -67,7 +67,7 @@ private CoordinatorLayout coordinatorLayout;
         RecyclerView recyclerView= (RecyclerView) getActivity().findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         llm=new LinearLayoutManager(getActivity());
-        coordinatorLayout = (CoordinatorLayout) getActivity().findViewById(R.id.coordinatorLayout);
+       // coordinatorLayout = (CoordinatorLayout) getActivity().findViewById(R.id.coordinatorLayout);
         recyclerView.setLayoutManager(llm);
         listArticles = new ArrayList<>();
 

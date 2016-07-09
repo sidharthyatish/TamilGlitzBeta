@@ -19,7 +19,7 @@ import com.android.volley.toolbox.NetworkImageView;
 import java.util.List;
 
 
-public class CardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
+public class CardAdapter extends RecyclerView.Adapter  {
     private final int VIEW_ITEM = 1;
     private final int VIEW_PROG = 0;
     private List<Article> articleList;
